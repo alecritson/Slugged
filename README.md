@@ -12,7 +12,7 @@ All configuration is done in the plugin settings page in the admin area.
 ***Salt*** 
 Set the salt to use when hashing
 
-Default: ‘Change me to something’
+Default: `Change me to something`
 
 ***Default length*** 
 The length of the hash, the default length of the hash this will be overwritten with any length defined for a section 
@@ -33,5 +33,3 @@ A section must be enabled for the hashing to happen, regardless of whether you a
 
 ## Slugged fieldType
 If you don’t want the entries slug to be replaced, Slugged also comes with a fieldType that you can use, this will work regardless of what section settings are enabled.
-
- 
