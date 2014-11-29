@@ -9,9 +9,10 @@ All configuration is done in the plugin settings page in the admin area.
 
 ### Plugin settings 
 
-**Salt**
+**Salt** 
 Set the salt to use when hashing
-default: ‘Change me to something’
+
+Default: ‘Change me to something’
 
 ***Default length*** 
 The length of the hash, the default length of the hash this will be overwritten with any length defined for a section 
