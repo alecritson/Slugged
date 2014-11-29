@@ -1,5 +1,7 @@
 # Slugged 
-Slugged is a Craft plugin that hashes the Id of an entry when it is saved and replaces the slug 
+Slugged is a Craft plugin that hashes the Id of an entry when it is saved and replaces the slug
+
+This plugin uses the [Hashids](http://hashids.org/php/) library to generate the slugs.
 
 ## Installation 
 To install, copy the `slugged` directory to `craft > plugins` and install through the admin interface. To update, replace the `slugged` directory and refresh the admin area. 
