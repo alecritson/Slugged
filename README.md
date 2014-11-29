@@ -9,7 +9,7 @@ All configuration is done in the plugin settings page in the admin area.
 
 ### Plugin settings 
 
-**Salt** 
+***Salt*** 
 Set the salt to use when hashing
 
 Default: ‘Change me to something’
