@@ -1,0 +1,69 @@
+{% import "_includes/forms" as forms %}
+
+{% set sections = craft.sections.getEditableSections %}
+
+{{ forms.textField({
+    label: "Hash salt"|t,
+    instructions: "Enter salt to be applied when creating hash"|t,
+    id: 'salt',
+    class: 'salt',
+    name: 'salt',
+    required: true,
+    value: settings.salt,
+    errors: settings ? settings.errors('salt') : null
+}) }}
+
+{{ forms.textField({
+    label: "Default length"|t,
+    instructions: "Enter default length of the hash"|t,
+    id: 'length',
+    class: 'length',
+    required: true,
+    name: 'length',
+    value: settings.length,
+    errors: settings ? settings.errors('length') : null
+}) }}
+
+{{ forms.textField({
+    label: "Alphabet"|t,
+    instructions: "Enter the characters to use when hashing"|t,
+    id: 'alphabet',
+    class: 'alphabet',
+    required: true,
+    name: 'alphabet',
+    value: settings.alphabet,
+    errors: settings ? settings.errors('alphabet') : null
+}) }}
+
+<h3>Sections</h3>
+
+<table class="data fullwidth">
+	<thead>
+		<th>Name</th>
+		<th>Length override</th>
+		<th>Enable</th>
+	</thead>
+
+	{% for section in sections %}
+		{% if section.type != 'single' and section.hasUrls %}
+			<tr> 
+				<td>{{ section.name }}</td>
+				<td>
+					{{ forms.text({
+						value: null,
+						name: 'sections['~ section.handle ~ '][length]',
+						value: (settings.sections[section.handle] is defined and settings.sections[section.handle].length ? settings.sections[section.handle].length : null) 
+					}) }}
+				</td>
+				<td>
+					{{ forms.lightswitch({
+						name: 'sections['~ section.handle ~ '][enabled]',
+						on:   (settings.sections[section.handle].enabled is defined and settings.sections[section.handle].enabled ? settings.sections[section.handle].enabled : null) 
+					}) }}
+				</td>
+			</tr>
+		{% endif %}
+	{% endfor %}
+</table>
+
+
