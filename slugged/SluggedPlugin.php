@@ -27,7 +27,7 @@ class SluggedPlugin extends BasePlugin
     {
         return array(
             'salt' => array(AttributeType::String, 'default' => 'Change me to something else', 'required' => true),
-            'alphabet' => array(AttributeType::String, 'default' => 'aBcDeFgHiJkLmNoPqRsTuVwXyZ123456789', 'required' => true),
+            'alphabet' => array(AttributeType::String, 'default' => 'abcdefghijklmnopqrstuvwxyz123456789', 'required' => true),
             'length' => array(AttributeType::Number, 'default' => 8, 'required' => true),
             'sections' => array(AttributeType::Mixed, 'default' => array())
         );
@@ -55,16 +55,10 @@ class SluggedPlugin extends BasePlugin
                 // Get the slugged settings
                 $settings = $pluginSettings['sections'][$section->handle];
 
-                $options = array(
-                    'length' => ($settings['length'] ? $settings['length'] : $pluginSettings['length']),
-                    'alphabet' => $pluginSettings['alphabet'],
-                    'salt' => $pluginSettings['salt']
-                );
-
                 // We only want to generate the slug if its enabled in the slugged settings
                 if($settings['enabled'])
                 {
-                    $slug = craft()->slugged->encode($entry);
+                    $slug = craft()->slugged->encodeById($entry->id);
                     $entry->setAttribute('slug', $slug);
                     craft()->entries->saveEntry($entry);
                 }

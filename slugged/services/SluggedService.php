@@ -24,43 +24,34 @@ class SluggedService extends BaseApplicationComponent
 	public function __construct()
 	{
 		$settings = craft()->plugins->getPlugin('slugged')->getSettings();
-
+		
 		$this->length = $settings['length'];
 		$this->salt = $settings['salt'];
 		$this->alphabet = $settings['alphabet'];
 
+		$this->encoder = new \Hashids\Hashids($this->salt, $this->length, $this->alphabet);
 	}
 
 	/**
-	 * Encode the entry slug and save the entry
+	 * Encode the id and return it
 	 *
 	 * This method will take EntryModel that's passed and encode it's ID, the entries slug attribute will then be replaced
 	 * with the encoded ID and saved.
 	 *
-	 * @param EntryModel $entry  The EntryModel representing the entry that has just been saved.
+	 * @param $id  A number to hash.
 	 *
 	 *
-	 * @return bool|null true if the method was successful
+	 * @return string|$encodedId the encoded ID
 	 */
-	public function encode(EntryModel $entry)
+	public function encodeById($id)
 	{
-
-		$encoder = new \Hashids\Hashids($this->salt, $this->length, $this->alphabet);
-
-		$encodedSlug = $encoder->encode($entry->id);
-		
-		return $encodedSlug;
+		$encodedId = $this->encoder->encode($id);
+		return $encodedId;
 	}
-	public function encodeById($id = null)
-	{
-		$entry = craft()->entries->getEntryById($id);
 
-		if(!$entry)
-		{
-			return false;
-		}
-		else {
-			return $this->encode($entry);
-		}
+	public function decode($hash)
+	{
+		$id = $this->encoder->decode($hash);
+		return reset($id);
 	}
 }
