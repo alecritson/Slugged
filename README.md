@@ -32,6 +32,36 @@ The only sections that will be listed are editable sections that have their own 
 ## Slugged fieldType
 If you don’t want the entries slug to be replaced, Slugged also comes with a fieldType that you can use, this will work regardless of what section settings are enabled.
 
+### Hidden asset download example
+You can use the slugged field type to hide the download path of an asset, or just to provide an easier to remember/share url.
+
+- Add a route to craft via `admin > settings > routes`, I will be using a `_trigger.html` template in a folder called `download` so my route looks like this: `download/*` and the template to load: `download/_trigger`
+
+- Create a slugged field type and attach it to the asset source using the layout designer
+
+On one of my assets, the field type value is `9ow1LmwN`,  so I will be using that for this example.
+
+my url looks like this: `http://alec.dev/download/9ow1LmwN`
+
+**download/_trigger.html**
+  
+    {# get the hash value from the url #}
+    {% set hash = craft.request.segment(2) %}
+    
+    {# use slugged’s decode method to get the ID #}
+    {% set assetId = craft.slugged.decode(hash) %}
+
+    {# Get the first asset with the id #}
+    {% set asset = craft.assets.id(assetId).first %}
+    
+    {# if there is an asset, redirect to its download url, otherwise throw a 404 #}
+    {% if asset is defined and asset|length %}
+        {% redirect asset.getUrl() %}
+    {% else %}
+       {% redirect "404" %}
+    {% endif %}
+
+
 ## Support, issues, feedback
 
 If you want to leave feedback about this project, feel free to get in touch on [twitter](https://twitter.com/alecritson) if you experience any issues please just create a new issue here on the Repo
