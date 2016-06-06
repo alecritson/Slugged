@@ -44,23 +44,23 @@ On one of my assets, the field type value is `9ow1LmwN`,  so I will be using tha
 my url looks like this: `http://alec.dev/download/9ow1LmwN`
 
 **download/_trigger.html**
-  
-    {# get the hash value from the url #}
-    {% set hash = craft.request.segment(2) %}
+```twig
+  {# get the hash value from the url #}
+  {% set hash = craft.request.segment(2) %}
     
-    {# use slugged’s decode method to get the ID #}
-    {% set assetId = craft.slugged.decode(hash) %}
+  {# use slugged’s decode method to get the ID #}
+  {% set assetId = craft.slugged.decode(hash) %}
 
-    {# Get the first asset with the id #}
-    {% set asset = craft.assets.id(assetId).first %}
+  {# Get the first asset with the id #}
+  {% set asset = craft.assets.id(assetId).first %}
     
-    {# if there is an asset, redirect to its download url, otherwise throw a 404 #}
-    {% if asset is defined and asset|length %}
+  {# if there is an asset, redirect to its download url, otherwise throw a 404 #}
+  {% if asset is defined and asset|length %}
         {% redirect asset.getUrl() %}
-    {% else %}
-       {% redirect "404" %}
-    {% endif %}
-
+  {% else %}
+    {% redirect "404" %}
+  {% endif %}
+```
 
 ## Support, issues, feedback
 
