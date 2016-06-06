@@ -44,7 +44,7 @@ On one of my assets, the field type value is `9ow1LmwN`,  so I will be using tha
 my url looks like this: `http://alec.dev/download/9ow1LmwN`
 
 **download/_trigger.html**
-```twig
+```
   {# get the hash value from the url #}
   {% set hash = craft.request.segment(2) %}
     
