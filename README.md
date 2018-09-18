@@ -1,3 +1,7 @@
+# Craft 3
+
+If you're looking for a Craft 3 version, this has been ported over by https://github.com/madmadmad/slugger, so be sure to use that instead.
+
 # Slugged 
 Slugged is a Craft plugin that hashes the Id of an entry when it is saved and replaces the slug
 
